@@ -10,6 +10,7 @@ import {
   Marker,
   Environment
 } from '@ionic-native/google-maps';
+import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
 
 @Component({
   selector: 'app-home',
@@ -63,6 +64,20 @@ export class HomePage {
   async alert(message: string) {
     let myalert= await this.alertCtrl.create({message: message});
     await myalert.present();
+  }
+
+  thisSize: boolean = true;
+  toogleSize() {
+    var ele = document.getElementById("map");
+    if (this.thisSize) {
+      ele.style.height = "60%";
+      this.thisSize = false;
+    }else {
+      ele.style.height = "50%";
+      this.thisSize = true;
+    }
+
+
   }
 
 }
