@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-07-11 17:31:11
+ * @LastEditTime: 2021-07-22 19:04:18
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /box_dev/Users/hy/proj/dev/javascript/ionic-cordova-googlemap-sample/src/app/home/home.page.ts
+ */
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import {
@@ -40,7 +48,7 @@ export class HomePage {
            lat: 39.99188446,
            lng: 116.46706996
          },
-         zoom: 18,
+         zoom: 17,
          tilt: 30
        }
     };
@@ -58,6 +66,26 @@ export class HomePage {
     });
     marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
       alert('clicked');
+    });
+  }
+
+  markMe() {
+    let marker: Marker = this.map.addMarkerSync({
+      title: 'Ionic',
+      // icon: 'blue',
+      icon: {url: 'http://img.pptjia.com/image/20171223/ee12f4fbf3bfb8e1f4de2fd5183194ce.jpg',
+          size: {
+            width: 20,
+            height: 20
+          }
+      },
+      animation: 'DROP',
+      position: {
+        lat: 39.99188446,
+        lng: 116.46706996
+      },
+      height: 20,
+      widht: 20
     });
   }
 
