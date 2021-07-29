@@ -8,15 +8,19 @@
  */
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { getPromise, checkAvailability } from "@ionic-native/core";
 import {
   GoogleMaps,
   GoogleMap,
   GoogleMapsEvent,
   GoogleMapOptions,
+  MyLocation,
   CameraPosition,
   MarkerOptions,
   Marker,
-  Environment
+  Environment,
+  LocationService,
+  
 } from '@ionic-native/google-maps';
 import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
 
@@ -27,6 +31,10 @@ import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_c
 })
 export class HomePage {
   map: GoogleMap;
+  lat: number;
+  lng: number;
+  poi_list: Array<Object>;
+  city_code: number;
 
   constructor(public alertCtrl: AlertController) {}
 
@@ -106,6 +114,29 @@ export class HomePage {
     }
 
 
+  }
+
+  mylocation() {
+    var loc = LocationService.getMyLocation().then( loc => {
+      this.alert("lat " + loc);
+      this.lat = loc.latLng.lat;
+      this.lng = loc.latLng.lng;
+      this.city_code = (loc as any).city_code;
+      this.poi_list = (loc as any).poi_list;
+    });
+  }
+
+
+  mypoi() {
+    var opt = {
+      "lat": this.lat,
+      "lng": this.lng,
+      city_code: this.city_code, 
+      async: true   //异步，必须为true
+    };
+    var loc = LocationService.getMyLocation((opt as any)).then( loc => {
+      this.alert("lat " + loc);
+    });
   }
 
 }
